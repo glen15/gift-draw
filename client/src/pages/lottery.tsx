@@ -73,7 +73,7 @@ export default function LotteryPage() {
   // Update participants when text changes
   useEffect(() => {
     const text = participantsText.trim();
-    const newParticipants = text ? text.split('\n').filter(name => name.trim()).map(name => name.trim()) : [];
+    const newParticipants = text ? text.split(',').filter(name => name.trim()).map(name => name.trim()) : [];
     setParticipants(newParticipants);
   }, [participantsText]);
 
@@ -156,7 +156,7 @@ export default function LotteryPage() {
       [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
     }
     
-    setParticipantsText(shuffled.join('\n'));
+    setParticipantsText(shuffled.join(', '));
   };
 
   return (
@@ -201,7 +201,7 @@ export default function LotteryPage() {
             
             <div className="space-y-4">
               <Textarea
-                placeholder="참가자 이름을 한 줄에 하나씩 입력해주세요.&#10;예시:&#10;김철수&#10;이영희&#10;박민수"
+                placeholder="참가자 이름을 쉼표로 구분해서 입력해주세요.&#10;예시: 김철수, 이영희, 박민수, 최지훈, 정수연"
                 className="h-40 resize-none"
                 value={participantsText}
                 onChange={(e) => setParticipantsText(e.target.value)}

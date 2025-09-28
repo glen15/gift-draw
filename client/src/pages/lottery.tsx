@@ -536,7 +536,7 @@ export default function LotteryPage() {
                   }
                   data-testid="lottery-wheel"
                 >
-                  <Gift className="text-white text-5xl drop-shadow-lg" />
+                  <Gift className="text-white drop-shadow-lg" size={80} />
                 </motion.div>
 
                 {/* Draw Button */}

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import type { DrawRecord } from "@shared/schema";
@@ -34,6 +35,9 @@ const Confetti = ({ delay = 0 }: { delay?: number }) => (
 export default function LotteryPage() {
   const [participantsText, setParticipantsText] = useState("");
   const [participants, setParticipants] = useState<string[]>([]);
+  const [giftsText, setGiftsText] = useState("");
+  const [gifts, setGifts] = useState<string[]>([]);
+  const [selectedGift, setSelectedGift] = useState<string>("");
   const [isDrawing, setIsDrawing] = useState(false);
   const [winner, setWinner] = useState<string | null>(null);
   const [preventDuplicates, setPreventDuplicates] = useState(false);
@@ -50,7 +54,7 @@ export default function LotteryPage() {
 
   // Add draw record mutation
   const addDrawRecordMutation = useMutation({
-    mutationFn: async (data: { winner: string; totalParticipants: number; participants: string[] }) => {
+    mutationFn: async (data: { winner: string; gift?: string; totalParticipants: number; participants: string[] }) => {
       const response = await apiRequest("POST", "/api/draw-record", data);
       return response.json();
     },
@@ -76,6 +80,17 @@ export default function LotteryPage() {
     const newParticipants = text ? text.split(',').filter(name => name.trim()).map(name => name.trim()) : [];
     setParticipants(newParticipants);
   }, [participantsText]);
+
+  // Update gifts when text changes
+  useEffect(() => {
+    const text = giftsText.trim();
+    const newGifts = text ? text.split(',').filter(gift => gift.trim()).map(gift => gift.trim()) : [];
+    setGifts(newGifts);
+    // Reset selected gift if it's no longer in the list
+    if (selectedGift && !newGifts.includes(selectedGift)) {
+      setSelectedGift("");
+    }
+  }, [giftsText, selectedGift]);
 
   // Get available participants (excluding used winners if prevent duplicates is on)
   const availableParticipants = preventDuplicates 
@@ -108,6 +123,7 @@ export default function LotteryPage() {
       try {
         await addDrawRecordMutation.mutateAsync({
           winner: selectedWinner,
+          gift: selectedGift || undefined,
           totalParticipants: participants.length,
           participants: participants
         });
@@ -121,7 +137,9 @@ export default function LotteryPage() {
       
       toast({ 
         title: "🎉 추첨 완료!", 
-        description: `${selectedWinner}님이 당첨되었습니다!` 
+        description: selectedGift 
+          ? `${selectedWinner}님이 ${selectedGift}에 당첨되었습니다!`
+          : `${selectedWinner}님이 당첨되었습니다!`
       });
     }, drawTime);
   };
@@ -144,6 +162,25 @@ export default function LotteryPage() {
     setUsedWinners(new Set());
     setWinner(null);
     setShowConfetti(false);
+  };
+
+  const clearGifts = () => {
+    setGiftsText("");
+    setGifts([]);
+    setSelectedGift("");
+  };
+
+  const shuffleGifts = () => {
+    if (gifts.length < 2) return;
+    
+    // Fisher-Yates shuffle
+    const shuffled = [...gifts];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    
+    setGiftsText(shuffled.join(', '));
   };
 
   const shuffleParticipants = () => {
@@ -238,6 +275,75 @@ export default function LotteryPage() {
           </CardContent>
         </Card>
 
+        {/* Gift Management */}
+        <Card className="mb-8">
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-semibold text-card-foreground flex items-center">
+                <Gift className="mr-2 text-primary" />
+                선물 목록
+              </h2>
+              <div className="flex items-center space-x-4">
+                <div className="bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm font-medium">
+                  {gifts.length}개
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={clearGifts}
+                  className="text-muted-foreground hover:text-foreground"
+                  data-testid="button-clear-gifts"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+            
+            <div className="space-y-4">
+              <Textarea
+                placeholder="선물 이름을 쉼표로 구분해서 입력해주세요.&#10;예시: 아이폰 15, 에어팟 프로, 스타벅스 기프티콘, 도서상품권, 치킨 쿠폰"
+                className="h-32 resize-none"
+                value={giftsText}
+                onChange={(e) => setGiftsText(e.target.value)}
+                data-testid="textarea-gifts"
+              />
+              
+              <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex-1">
+                  <label className="text-sm font-medium text-muted-foreground mb-2 block">
+                    추첨할 선물 선택 (선택사항)
+                  </label>
+                  <Select value={selectedGift} onValueChange={setSelectedGift}>
+                    <SelectTrigger data-testid="select-gift">
+                      <SelectValue placeholder="선물을 선택하세요 (전체 추첨시 비워두세요)" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="">전체 선물 (랜덤)</SelectItem>
+                      {gifts.map((gift) => (
+                        <SelectItem key={gift} value={gift}>
+                          {gift}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={shuffleGifts}
+                  disabled={gifts.length < 2}
+                  className="text-primary hover:text-primary/80 self-end"
+                  data-testid="button-shuffle-gifts"
+                >
+                  <Shuffle className="h-4 w-4 mr-1" />
+                  선물 섞기
+                </Button>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Lottery Draw */}
         <Card className="mb-8">
           <CardContent className="p-8 text-center">
@@ -316,7 +422,14 @@ export default function LotteryPage() {
                         <div className="text-3xl font-bold text-primary mb-2" data-testid="winner-name">
                           {winner}
                         </div>
-                        <p className="text-muted-foreground">축하드립니다! 선물을 받아가세요!</p>
+                        {selectedGift && (
+                          <div className="text-xl font-semibold text-secondary-foreground mb-2" data-testid="selected-gift">
+                            🎁 {selectedGift}
+                          </div>
+                        )}
+                        <p className="text-muted-foreground">
+                          축하드립니다! {selectedGift ? '선물을 받아가세요!' : '선물을 받아가세요!'}
+                        </p>
                       </div>
                       
                       <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -397,6 +510,11 @@ export default function LotteryPage() {
                           <div className="font-medium text-card-foreground" data-testid={`winner-${record.id}`}>
                             {record.winner}
                           </div>
+                          {record.gift && (
+                            <div className="text-sm font-medium text-primary" data-testid={`gift-${record.id}`}>
+                              🎁 {record.gift}
+                            </div>
+                          )}
                           <div className="text-sm text-muted-foreground" data-testid={`timestamp-${record.id}`}>
                             {new Date(record.timestamp).toLocaleString('ko-KR')}
                           </div>

@@ -7,6 +7,7 @@ export const drawRecords = pgTable("draw_records", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   sessionId: text("session_id").notNull(),
   winner: text("winner").notNull(),
+  gift: text("gift"), // 선물 이름 (선택사항)
   totalParticipants: integer("total_participants").notNull(),
   participants: text("participants").array().notNull(),
   timestamp: timestamp("timestamp").notNull().defaultNow(),

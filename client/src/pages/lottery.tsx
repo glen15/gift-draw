@@ -37,7 +37,7 @@ export default function LotteryPage() {
   const [participants, setParticipants] = useState<string[]>([]);
   const [giftsText, setGiftsText] = useState("");
   const [gifts, setGifts] = useState<string[]>([]);
-  const [selectedGift, setSelectedGift] = useState<string>("");
+  const [selectedGift, setSelectedGift] = useState<string>("all");
   const [isDrawing, setIsDrawing] = useState(false);
   const [winner, setWinner] = useState<string | null>(null);
   const [preventDuplicates, setPreventDuplicates] = useState(false);
@@ -87,8 +87,8 @@ export default function LotteryPage() {
     const newGifts = text ? text.split(',').filter(gift => gift.trim()).map(gift => gift.trim()) : [];
     setGifts(newGifts);
     // Reset selected gift if it's no longer in the list
-    if (selectedGift && !newGifts.includes(selectedGift)) {
-      setSelectedGift("");
+    if (selectedGift !== "all" && !newGifts.includes(selectedGift)) {
+      setSelectedGift("all");
     }
   }, [giftsText, selectedGift]);
 
@@ -123,7 +123,7 @@ export default function LotteryPage() {
       try {
         await addDrawRecordMutation.mutateAsync({
           winner: selectedWinner,
-          gift: selectedGift || undefined,
+          gift: selectedGift === "all" ? undefined : selectedGift,
           totalParticipants: participants.length,
           participants: participants
         });
@@ -137,7 +137,7 @@ export default function LotteryPage() {
       
       toast({ 
         title: "🎉 추첨 완료!", 
-        description: selectedGift 
+        description: selectedGift !== "all"
           ? `${selectedWinner}님이 ${selectedGift}에 당첨되었습니다!`
           : `${selectedWinner}님이 당첨되었습니다!`
       });
@@ -167,7 +167,7 @@ export default function LotteryPage() {
   const clearGifts = () => {
     setGiftsText("");
     setGifts([]);
-    setSelectedGift("");
+    setSelectedGift("all");
   };
 
   const shuffleGifts = () => {
@@ -318,7 +318,7 @@ export default function LotteryPage() {
                       <SelectValue placeholder="선물을 선택하세요 (전체 추첨시 비워두세요)" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">전체 선물 (랜덤)</SelectItem>
+                      <SelectItem value="all">전체 선물 (랜덤)</SelectItem>
                       {gifts.map((gift) => (
                         <SelectItem key={gift} value={gift}>
                           {gift}
@@ -422,13 +422,13 @@ export default function LotteryPage() {
                         <div className="text-3xl font-bold text-primary mb-2" data-testid="winner-name">
                           {winner}
                         </div>
-                        {selectedGift && (
+                        {selectedGift !== "all" && (
                           <div className="text-xl font-semibold text-secondary-foreground mb-2" data-testid="selected-gift">
                             🎁 {selectedGift}
                           </div>
                         )}
                         <p className="text-muted-foreground">
-                          축하드립니다! {selectedGift ? '선물을 받아가세요!' : '선물을 받아가세요!'}
+                          축하드립니다! 선물을 받아가세요!
                         </p>
                       </div>
                       

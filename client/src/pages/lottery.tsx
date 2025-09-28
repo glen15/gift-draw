@@ -40,6 +40,7 @@ export default function LotteryPage() {
   const [selectedGift, setSelectedGift] = useState<string>("all");
   const [isDrawing, setIsDrawing] = useState(false);
   const [winner, setWinner] = useState<string | null>(null);
+  const [winningGift, setWinningGift] = useState<string | null>(null);
   const [preventDuplicates, setPreventDuplicates] = useState(false);
   const [usedWinners, setUsedWinners] = useState<Set<string>>(new Set());
   const [showConfetti, setShowConfetti] = useState(false);
@@ -114,6 +115,13 @@ export default function LotteryPage() {
       const randomIndex = Math.floor(Math.random() * availableParticipants.length);
       const selectedWinner = availableParticipants[randomIndex];
       
+      // Select random gift if "all" is selected and gifts exist
+      let finalGift = selectedGift;
+      if (selectedGift === "all" && gifts.length > 0) {
+        const randomGiftIndex = Math.floor(Math.random() * gifts.length);
+        finalGift = gifts[randomGiftIndex];
+      }
+      
       // Add to used winners if duplicate prevention is on
       if (preventDuplicates) {
         setUsedWinners(prev => new Set(prev).add(selectedWinner));
@@ -123,7 +131,7 @@ export default function LotteryPage() {
       try {
         await addDrawRecordMutation.mutateAsync({
           winner: selectedWinner,
-          gift: selectedGift === "all" ? undefined : selectedGift,
+          gift: finalGift === "all" ? undefined : finalGift,
           totalParticipants: participants.length,
           participants: participants
         });
@@ -132,13 +140,14 @@ export default function LotteryPage() {
       }
       
       setWinner(selectedWinner);
+      setWinningGift(finalGift === "all" ? null : finalGift);
       setShowConfetti(true);
       setIsDrawing(false);
       
       toast({ 
         title: "🎉 추첨 완료!", 
-        description: selectedGift !== "all"
-          ? `${selectedWinner}님이 ${selectedGift}에 당첨되었습니다!`
+        description: finalGift !== "all"
+          ? `${selectedWinner}님이 ${finalGift}에 당첨되었습니다!`
           : `${selectedWinner}님이 당첨되었습니다!`
       });
     }, drawTime);
@@ -146,12 +155,14 @@ export default function LotteryPage() {
 
   const drawAgain = () => {
     setWinner(null);
+    setWinningGift(null);
     setShowConfetti(false);
     setTimeout(() => startLottery(), 100);
   };
 
   const newDraw = () => {
     setWinner(null);
+    setWinningGift(null);
     setShowConfetti(false);
     setUsedWinners(new Set());
   };
@@ -161,6 +172,7 @@ export default function LotteryPage() {
     setParticipants([]);
     setUsedWinners(new Set());
     setWinner(null);
+    setWinningGift(null);
     setShowConfetti(false);
   };
 
@@ -423,9 +435,9 @@ export default function LotteryPage() {
                         <div className="text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent mb-3" data-testid="winner-name">
                           {winner}
                         </div>
-                        {selectedGift !== "all" && (
+                        {winningGift && (
                           <div className="text-2xl font-bold text-yellow-300 mb-3" data-testid="selected-gift">
-                            🎁 {selectedGift}
+                            🎁 {winningGift}
                           </div>
                         )}
                         <p className="text-purple-200 text-lg font-medium">

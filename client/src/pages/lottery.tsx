@@ -213,11 +213,11 @@ export default function LotteryPage() {
 
       <main className="max-w-6xl mx-auto px-6 py-12">
         {/* Participant Input */}
-        <Card className="mb-8 bg-gradient-to-br from-slate-800/50 to-purple-900/30 backdrop-blur-sm border-purple-500/30 shadow-2xl">
+        <Card className="mb-8 bg-white/95 backdrop-blur-sm border-purple-200 shadow-2xl">
           <CardContent className="p-8">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent flex items-center">
-                <Users className="mr-3 text-pink-400" size={28} />
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent flex items-center">
+                <Users className="mr-3 text-pink-500" size={28} />
                 참가자 명단
               </h2>
               <div className="flex items-center space-x-4">
@@ -228,7 +228,7 @@ export default function LotteryPage() {
                   variant="ghost"
                   size="sm"
                   onClick={clearParticipants}
-                  className="text-purple-300 hover:text-pink-300 hover:bg-purple-800/50 rounded-full"
+                  className="text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-full"
                   data-testid="button-clear-participants"
                 >
                   <Trash2 className="h-5 w-5" />
@@ -239,7 +239,7 @@ export default function LotteryPage() {
             <div className="space-y-6">
               <Textarea
                 placeholder="참가자 이름을 쉼표로 구분해서 입력해주세요.&#10;예시: 김철수, 이영희, 박민수, 최지훈, 정수연"
-                className="h-40 resize-none bg-slate-800/50 border-purple-500/30 text-purple-100 placeholder:text-purple-300 focus:border-pink-400 focus:ring-pink-400/20 rounded-xl"
+                className="h-40 resize-none bg-gray-50 border-purple-200 text-gray-800 placeholder:text-gray-500 focus:border-pink-400 focus:ring-pink-400/20 rounded-xl"
                 value={participantsText}
                 onChange={(e) => setParticipantsText(e.target.value)}
                 data-testid="textarea-participants"
@@ -254,9 +254,9 @@ export default function LotteryPage() {
                     data-testid="checkbox-prevent-duplicates"
                     className="border-purple-400 data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-pink-500 data-[state=checked]:to-purple-600"
                   />
-                  <label htmlFor="prevent-duplicates" className="text-purple-200 font-medium flex items-center space-x-2">
+                  <label htmlFor="prevent-duplicates" className="text-gray-700 font-medium flex items-center space-x-2">
                     <span>중복 당첨 방지</span>
-                    <Info className="h-4 w-4 text-pink-400" />
+                    <Info className="h-4 w-4 text-pink-500" />
                   </label>
                 </div>
                 
@@ -265,7 +265,7 @@ export default function LotteryPage() {
                   size="sm"
                   onClick={shuffleParticipants}
                   disabled={participants.length < 2}
-                  className="text-pink-400 hover:text-pink-300 hover:bg-purple-800/50 rounded-full font-semibold"
+                  className="text-pink-600 hover:text-pink-700 hover:bg-pink-50 rounded-full font-semibold"
                   data-testid="button-shuffle"
                 >
                   <Shuffle className="h-5 w-5 mr-2" />
@@ -277,11 +277,11 @@ export default function LotteryPage() {
         </Card>
 
         {/* Gift Management */}
-        <Card className="mb-8 bg-gradient-to-br from-purple-900/50 to-slate-800/50 backdrop-blur-sm border-purple-500/30 shadow-2xl">
+        <Card className="mb-8 bg-white/95 backdrop-blur-sm border-purple-200 shadow-2xl">
           <CardContent className="p-8">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent flex items-center">
-                <Gift className="mr-3 text-purple-400" size={28} />
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent flex items-center">
+                <Gift className="mr-3 text-purple-500" size={28} />
                 선물 목록
               </h2>
               <div className="flex items-center space-x-4">
@@ -292,7 +292,7 @@ export default function LotteryPage() {
                   variant="ghost"
                   size="sm"
                   onClick={clearGifts}
-                  className="text-purple-300 hover:text-pink-300 hover:bg-purple-800/50 rounded-full"
+                  className="text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-full"
                   data-testid="button-clear-gifts"
                 >
                   <Trash2 className="h-5 w-5" />
@@ -303,7 +303,7 @@ export default function LotteryPage() {
             <div className="space-y-6">
               <Textarea
                 placeholder="선물 이름을 쉼표로 구분해서 입력해주세요.&#10;예시: 아이폰 15, 에어팟 프로, 스타벅스 기프티콘, 도서상품권, 치킨 쿠폰"
-                className="h-32 resize-none bg-slate-800/50 border-purple-500/30 text-purple-100 placeholder:text-purple-300 focus:border-pink-400 focus:ring-pink-400/20 rounded-xl"
+                className="h-32 resize-none bg-gray-50 border-purple-200 text-gray-800 placeholder:text-gray-500 focus:border-pink-400 focus:ring-pink-400/20 rounded-xl"
                 value={giftsText}
                 onChange={(e) => setGiftsText(e.target.value)}
                 data-testid="textarea-gifts"
@@ -311,17 +311,17 @@ export default function LotteryPage() {
               
               <div className="flex flex-col sm:flex-row gap-6">
                 <div className="flex-1">
-                  <label className="text-purple-200 font-semibold mb-3 block">
+                  <label className="text-gray-700 font-semibold mb-3 block">
                     🎁 추첨할 선물 선택 (선택사항)
                   </label>
                   <Select value={selectedGift} onValueChange={setSelectedGift}>
-                    <SelectTrigger data-testid="select-gift" className="bg-slate-800/50 border-purple-500/30 text-purple-100 focus:border-pink-400 rounded-xl">
+                    <SelectTrigger data-testid="select-gift" className="bg-gray-50 border-purple-200 text-gray-800 focus:border-pink-400 rounded-xl">
                       <SelectValue placeholder="선물을 선택하세요 (전체 추첨시 비워두세요)" />
                     </SelectTrigger>
-                    <SelectContent className="bg-slate-800 border-purple-500/30">
-                      <SelectItem value="all" className="text-purple-100 focus:bg-purple-700/50">전체 선물 (랜덤)</SelectItem>
+                    <SelectContent className="bg-white border-purple-200">
+                      <SelectItem value="all" className="text-gray-800 focus:bg-purple-50">전체 선물 (랜덤)</SelectItem>
                       {gifts.map((gift) => (
-                        <SelectItem key={gift} value={gift} className="text-purple-100 focus:bg-purple-700/50">
+                        <SelectItem key={gift} value={gift} className="text-gray-800 focus:bg-purple-50">
                           {gift}
                         </SelectItem>
                       ))}
@@ -334,7 +334,7 @@ export default function LotteryPage() {
                   size="sm"
                   onClick={shuffleGifts}
                   disabled={gifts.length < 2}
-                  className="text-pink-400 hover:text-pink-300 hover:bg-purple-800/50 rounded-full font-semibold self-end"
+                  className="text-pink-600 hover:text-pink-700 hover:bg-pink-50 rounded-full font-semibold self-end"
                   data-testid="button-shuffle-gifts"
                 >
                   <Shuffle className="h-5 w-5 mr-2" />
@@ -460,11 +460,11 @@ export default function LotteryPage() {
         </Card>
 
         {/* Draw History */}
-        <Card className="bg-gradient-to-br from-slate-800/50 to-indigo-900/50 backdrop-blur-sm border-purple-500/30 shadow-2xl">
+        <Card className="bg-white/95 backdrop-blur-sm border-purple-200 shadow-2xl">
           <CardContent className="p-8">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent flex items-center">
-                <History className="mr-3 text-indigo-400" size={28} />
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent flex items-center">
+                <History className="mr-3 text-indigo-500" size={28} />
                 추첨 기록
               </h3>
               <Button
@@ -472,7 +472,7 @@ export default function LotteryPage() {
                 size="sm"
                 onClick={() => clearHistoryMutation.mutate()}
                 disabled={clearHistoryMutation.isPending || drawHistory.length === 0}
-                className="text-purple-300 hover:text-pink-300 hover:bg-purple-800/50 rounded-full font-semibold"
+                className="text-gray-500 hover:text-red-500 hover:bg-red-50 rounded-full font-semibold"
                 data-testid="button-clear-history"
               >
                 <Trash2 className="h-5 w-5 mr-2" />
@@ -482,21 +482,21 @@ export default function LotteryPage() {
             
             <div className="space-y-4" data-testid="history-list">
               {historyLoading ? (
-                <div className="text-center py-12 text-purple-300">
+                <div className="text-center py-12 text-gray-600">
                   <div className="animate-spin w-8 h-8 border-3 border-purple-400 border-t-transparent rounded-full mx-auto mb-4"></div>
                   <p className="text-lg font-medium">기록을 불러오는 중...</p>
                 </div>
               ) : drawHistory.length === 0 ? (
-                <div className="text-center py-12 text-purple-300">
+                <div className="text-center py-12 text-gray-600">
                   <Clock className="text-4xl mb-4 mx-auto text-purple-400" />
                   <p className="text-lg font-medium">아직 추첨 기록이 없습니다.</p>
-                  <p className="text-purple-400">첫 번째 추첨을 시작해보세요! ✨</p>
+                  <p className="text-purple-500">첫 번째 추첨을 시작해보세요! ✨</p>
                 </div>
               ) : (
                 drawHistory.map((record, index) => (
                   <motion.div
                     key={record.id}
-                    className="bg-gradient-to-r from-slate-800/50 to-purple-800/30 rounded-xl p-6 border border-purple-500/30 shadow-lg"
+                    className="bg-gray-50 rounded-xl p-6 border border-purple-200 shadow-lg"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
@@ -508,20 +508,20 @@ export default function LotteryPage() {
                           <Trophy className="text-white text-lg" />
                         </div>
                         <div>
-                          <div className="font-bold text-purple-100 text-lg" data-testid={`winner-${record.id}`}>
+                          <div className="font-bold text-gray-800 text-lg" data-testid={`winner-${record.id}`}>
                             {record.winner}
                           </div>
                           {record.gift && (
-                            <div className="text-pink-300 font-semibold" data-testid={`gift-${record.id}`}>
+                            <div className="text-pink-600 font-semibold" data-testid={`gift-${record.id}`}>
                               🎁 {record.gift}
                             </div>
                           )}
-                          <div className="text-purple-400 text-sm" data-testid={`timestamp-${record.id}`}>
+                          <div className="text-gray-500 text-sm" data-testid={`timestamp-${record.id}`}>
                             {new Date(record.timestamp).toLocaleString('ko-KR')}
                           </div>
                         </div>
                       </div>
-                      <div className="text-purple-300 font-medium" data-testid={`participants-count-${record.id}`}>
+                      <div className="text-gray-600 font-medium" data-testid={`participants-count-${record.id}`}>
                         {record.totalParticipants}명 중 선정
                       </div>
                     </div>

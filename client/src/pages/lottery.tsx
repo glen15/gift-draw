@@ -197,65 +197,66 @@ export default function LotteryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Header */}
-      <header className="bg-card border-b border-border shadow-sm">
-        <div className="max-w-4xl mx-auto px-4 py-6">
+      <header className="bg-gradient-to-r from-navy-800/80 to-purple-800/80 backdrop-blur-sm border-b border-purple-500/20 shadow-2xl">
+        <div className="max-w-6xl mx-auto px-6 py-8">
           <div className="text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-primary mb-2 flex items-center justify-center">
-              <Gift className="mr-3" />
+            <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400 bg-clip-text text-transparent mb-4 flex items-center justify-center">
+              <Gift className="mr-4 text-pink-400" size={48} />
               선물 추첨 앱
             </h1>
-            <p className="text-muted-foreground text-lg">공정하고 재미있는 랜덤 추첨을 경험해보세요!</p>
+            <p className="text-purple-200 text-xl font-medium">✨ 공정하고 재미있는 랜덤 추첨을 경험해보세요! ✨</p>
           </div>
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 py-8">
+      <main className="max-w-6xl mx-auto px-6 py-12">
         {/* Participant Input */}
-        <Card className="mb-8">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-card-foreground flex items-center">
-                <Users className="mr-2 text-primary" />
+        <Card className="mb-8 bg-gradient-to-br from-slate-800/50 to-purple-900/30 backdrop-blur-sm border-purple-500/30 shadow-2xl">
+          <CardContent className="p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent flex items-center">
+                <Users className="mr-3 text-pink-400" size={28} />
                 참가자 명단
               </h2>
               <div className="flex items-center space-x-4">
-                <div className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-medium">
+                <div className="bg-gradient-to-r from-pink-500 to-purple-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
                   {participants.length}명
                 </div>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={clearParticipants}
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-purple-300 hover:text-pink-300 hover:bg-purple-800/50 rounded-full"
                   data-testid="button-clear-participants"
                 >
-                  <Trash2 className="h-4 w-4" />
+                  <Trash2 className="h-5 w-5" />
                 </Button>
               </div>
             </div>
             
-            <div className="space-y-4">
+            <div className="space-y-6">
               <Textarea
                 placeholder="참가자 이름을 쉼표로 구분해서 입력해주세요.&#10;예시: 김철수, 이영희, 박민수, 최지훈, 정수연"
-                className="h-40 resize-none"
+                className="h-40 resize-none bg-slate-800/50 border-purple-500/30 text-purple-100 placeholder:text-purple-300 focus:border-pink-400 focus:ring-pink-400/20 rounded-xl"
                 value={participantsText}
                 onChange={(e) => setParticipantsText(e.target.value)}
                 data-testid="textarea-participants"
               />
               
-              <div className="flex flex-col sm:flex-row gap-4">
-                <div className="flex items-center space-x-2">
+              <div className="flex flex-col sm:flex-row gap-6">
+                <div className="flex items-center space-x-3">
                   <Checkbox
                     id="prevent-duplicates"
                     checked={preventDuplicates}
                     onCheckedChange={(checked) => setPreventDuplicates(!!checked)}
                     data-testid="checkbox-prevent-duplicates"
+                    className="border-purple-400 data-[state=checked]:bg-gradient-to-r data-[state=checked]:from-pink-500 data-[state=checked]:to-purple-600"
                   />
-                  <label htmlFor="prevent-duplicates" className="text-sm text-muted-foreground flex items-center space-x-1">
+                  <label htmlFor="prevent-duplicates" className="text-purple-200 font-medium flex items-center space-x-2">
                     <span>중복 당첨 방지</span>
-                    <Info className="h-3 w-3" />
+                    <Info className="h-4 w-4 text-pink-400" />
                   </label>
                 </div>
                 
@@ -264,10 +265,10 @@ export default function LotteryPage() {
                   size="sm"
                   onClick={shuffleParticipants}
                   disabled={participants.length < 2}
-                  className="text-primary hover:text-primary/80"
+                  className="text-pink-400 hover:text-pink-300 hover:bg-purple-800/50 rounded-full font-semibold"
                   data-testid="button-shuffle"
                 >
-                  <Shuffle className="h-4 w-4 mr-1" />
+                  <Shuffle className="h-5 w-5 mr-2" />
                   명단 섞기
                 </Button>
               </div>
@@ -276,51 +277,51 @@ export default function LotteryPage() {
         </Card>
 
         {/* Gift Management */}
-        <Card className="mb-8">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-semibold text-card-foreground flex items-center">
-                <Gift className="mr-2 text-primary" />
+        <Card className="mb-8 bg-gradient-to-br from-purple-900/50 to-slate-800/50 backdrop-blur-sm border-purple-500/30 shadow-2xl">
+          <CardContent className="p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent flex items-center">
+                <Gift className="mr-3 text-purple-400" size={28} />
                 선물 목록
               </h2>
               <div className="flex items-center space-x-4">
-                <div className="bg-secondary text-secondary-foreground px-3 py-1 rounded-full text-sm font-medium">
+                <div className="bg-gradient-to-r from-purple-600 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
                   {gifts.length}개
                 </div>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={clearGifts}
-                  className="text-muted-foreground hover:text-foreground"
+                  className="text-purple-300 hover:text-pink-300 hover:bg-purple-800/50 rounded-full"
                   data-testid="button-clear-gifts"
                 >
-                  <Trash2 className="h-4 w-4" />
+                  <Trash2 className="h-5 w-5" />
                 </Button>
               </div>
             </div>
             
-            <div className="space-y-4">
+            <div className="space-y-6">
               <Textarea
                 placeholder="선물 이름을 쉼표로 구분해서 입력해주세요.&#10;예시: 아이폰 15, 에어팟 프로, 스타벅스 기프티콘, 도서상품권, 치킨 쿠폰"
-                className="h-32 resize-none"
+                className="h-32 resize-none bg-slate-800/50 border-purple-500/30 text-purple-100 placeholder:text-purple-300 focus:border-pink-400 focus:ring-pink-400/20 rounded-xl"
                 value={giftsText}
                 onChange={(e) => setGiftsText(e.target.value)}
                 data-testid="textarea-gifts"
               />
               
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-6">
                 <div className="flex-1">
-                  <label className="text-sm font-medium text-muted-foreground mb-2 block">
-                    추첨할 선물 선택 (선택사항)
+                  <label className="text-purple-200 font-semibold mb-3 block">
+                    🎁 추첨할 선물 선택 (선택사항)
                   </label>
                   <Select value={selectedGift} onValueChange={setSelectedGift}>
-                    <SelectTrigger data-testid="select-gift">
+                    <SelectTrigger data-testid="select-gift" className="bg-slate-800/50 border-purple-500/30 text-purple-100 focus:border-pink-400 rounded-xl">
                       <SelectValue placeholder="선물을 선택하세요 (전체 추첨시 비워두세요)" />
                     </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">전체 선물 (랜덤)</SelectItem>
+                    <SelectContent className="bg-slate-800 border-purple-500/30">
+                      <SelectItem value="all" className="text-purple-100 focus:bg-purple-700/50">전체 선물 (랜덤)</SelectItem>
                       {gifts.map((gift) => (
-                        <SelectItem key={gift} value={gift}>
+                        <SelectItem key={gift} value={gift} className="text-purple-100 focus:bg-purple-700/50">
                           {gift}
                         </SelectItem>
                       ))}
@@ -333,10 +334,10 @@ export default function LotteryPage() {
                   size="sm"
                   onClick={shuffleGifts}
                   disabled={gifts.length < 2}
-                  className="text-primary hover:text-primary/80 self-end"
+                  className="text-pink-400 hover:text-pink-300 hover:bg-purple-800/50 rounded-full font-semibold self-end"
                   data-testid="button-shuffle-gifts"
                 >
-                  <Shuffle className="h-4 w-4 mr-1" />
+                  <Shuffle className="h-5 w-5 mr-2" />
                   선물 섞기
                 </Button>
               </div>
@@ -345,9 +346,9 @@ export default function LotteryPage() {
         </Card>
 
         {/* Lottery Draw */}
-        <Card className="mb-8">
-          <CardContent className="p-8 text-center">
-            <div className="space-y-6">
+        <Card className="mb-8 bg-gradient-to-br from-indigo-900/50 to-purple-900/50 backdrop-blur-sm border-purple-500/30 shadow-2xl">
+          <CardContent className="p-12 text-center">
+            <div className="space-y-8">
               <div className="relative">
                 {/* Confetti */}
                 <AnimatePresence>
@@ -358,27 +359,27 @@ export default function LotteryPage() {
 
                 {/* Lottery Wheel */}
                 <motion.div
-                  className="mx-auto w-32 h-32 bg-gradient-to-r from-primary to-primary/80 rounded-full flex items-center justify-center mb-6"
+                  className="mx-auto w-40 h-40 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 rounded-full flex items-center justify-center mb-8 shadow-2xl"
                   animate={isDrawing ? { rotate: 360 } : {}}
                   transition={isDrawing ? { duration: 0.8, repeat: Infinity, ease: "linear" } : {}}
                   data-testid="lottery-wheel"
                 >
-                  <Gift className="text-primary-foreground text-4xl" />
+                  <Gift className="text-white text-5xl drop-shadow-lg" />
                 </motion.div>
 
                 {/* Draw Button */}
                 <Button
                   onClick={startLottery}
                   disabled={!canDraw}
-                  className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-4 px-8 text-lg shadow-lg"
+                  className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold py-6 px-12 text-xl shadow-2xl rounded-full transform hover:scale-105 transition-all duration-200"
                   data-testid="button-start-draw"
                 >
                   {availableParticipants.length === 0 && participants.length > 0 && preventDuplicates ? (
                     "모든 참가자가 당첨됨"
                   ) : (
                     <>
-                      <Play className="mr-2" />
-                      추첨 시작
+                      <Play className="mr-3" size={24} />
+                      ✨ 추첨 시작 ✨
                     </>
                   )}
                 </Button>
@@ -387,18 +388,18 @@ export default function LotteryPage() {
                 <AnimatePresence>
                   {isDrawing && (
                     <motion.div
-                      className="mt-4 flex items-center justify-center space-x-2 text-primary"
+                      className="mt-6 flex items-center justify-center space-x-3 text-pink-300"
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       data-testid="drawing-status"
                     >
                       <motion.div
-                        className="w-6 h-6 border-2 border-primary border-t-transparent rounded-full"
+                        className="w-8 h-8 border-3 border-pink-400 border-t-transparent rounded-full"
                         animate={{ rotate: 360 }}
                         transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                       />
-                      <span className="font-medium">추첨 중...</span>
+                      <span className="font-bold text-lg">🎲 추첨 중... 🎲</span>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -407,35 +408,35 @@ export default function LotteryPage() {
                 <AnimatePresence>
                   {winner && (
                     <motion.div
-                      className="mt-6"
+                      className="mt-8"
                       initial={{ scale: 0, rotate: -360, opacity: 0 }}
                       animate={{ scale: 1, rotate: 0, opacity: 1 }}
                       exit={{ scale: 0, opacity: 0 }}
                       transition={{ duration: 0.6, ease: "easeOut" }}
                       data-testid="winner-announcement"
                     >
-                      <div className="bg-gradient-to-r from-yellow-100 to-yellow-50 dark:from-yellow-900/20 dark:to-yellow-800/20 border-2 border-yellow-300 dark:border-yellow-600 rounded-xl p-6 mb-4">
-                        <h3 className="text-2xl font-bold text-yellow-700 dark:text-yellow-300 mb-2 flex items-center justify-center">
-                          <Trophy className="mr-2" />
+                      <div className="bg-gradient-to-r from-yellow-400/20 to-pink-400/20 backdrop-blur-sm border-2 border-yellow-400/50 rounded-2xl p-8 mb-6 shadow-2xl">
+                        <h3 className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-pink-400 bg-clip-text text-transparent mb-4 flex items-center justify-center">
+                          <Trophy className="mr-3 text-yellow-400" size={32} />
                           🎉 축하합니다! 🎉
                         </h3>
-                        <div className="text-3xl font-bold text-primary mb-2" data-testid="winner-name">
+                        <div className="text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent mb-3" data-testid="winner-name">
                           {winner}
                         </div>
                         {selectedGift !== "all" && (
-                          <div className="text-xl font-semibold text-secondary-foreground mb-2" data-testid="selected-gift">
+                          <div className="text-2xl font-bold text-yellow-300 mb-3" data-testid="selected-gift">
                             🎁 {selectedGift}
                           </div>
                         )}
-                        <p className="text-muted-foreground">
-                          축하드립니다! 선물을 받아가세요!
+                        <p className="text-purple-200 text-lg font-medium">
+                          ✨ 축하드립니다! 선물을 받아가세요! ✨
                         </p>
                       </div>
                       
                       <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <Button
                           onClick={drawAgain}
-                          className="bg-primary hover:bg-primary/90 text-primary-foreground"
+                          className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-6 rounded-full shadow-lg"
                           data-testid="button-draw-again"
                         >
                           <RotateCcw className="mr-2" />
@@ -443,7 +444,7 @@ export default function LotteryPage() {
                         </Button>
                         <Button
                           onClick={newDraw}
-                          variant="secondary"
+                          className="bg-gradient-to-r from-slate-600 to-slate-700 hover:from-slate-700 hover:to-slate-800 text-white font-bold py-3 px-6 rounded-full shadow-lg"
                           data-testid="button-new-draw"
                         >
                           <Plus className="mr-2" />
@@ -459,11 +460,11 @@ export default function LotteryPage() {
         </Card>
 
         {/* Draw History */}
-        <Card>
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-card-foreground flex items-center">
-                <History className="mr-2 text-primary" />
+        <Card className="bg-gradient-to-br from-slate-800/50 to-indigo-900/50 backdrop-blur-sm border-purple-500/30 shadow-2xl">
+          <CardContent className="p-8">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-purple-400 bg-clip-text text-transparent flex items-center">
+                <History className="mr-3 text-indigo-400" size={28} />
                 추첨 기록
               </h3>
               <Button
@@ -471,56 +472,56 @@ export default function LotteryPage() {
                 size="sm"
                 onClick={() => clearHistoryMutation.mutate()}
                 disabled={clearHistoryMutation.isPending || drawHistory.length === 0}
-                className="text-muted-foreground hover:text-foreground"
+                className="text-purple-300 hover:text-pink-300 hover:bg-purple-800/50 rounded-full font-semibold"
                 data-testid="button-clear-history"
               >
-                <Trash2 className="h-4 w-4 mr-1" />
+                <Trash2 className="h-5 w-5 mr-2" />
                 기록 삭제
               </Button>
             </div>
             
-            <div className="space-y-3" data-testid="history-list">
+            <div className="space-y-4" data-testid="history-list">
               {historyLoading ? (
-                <div className="text-center py-8 text-muted-foreground">
-                  <div className="animate-spin w-6 h-6 border-2 border-primary border-t-transparent rounded-full mx-auto mb-2"></div>
-                  <p>기록을 불러오는 중...</p>
+                <div className="text-center py-12 text-purple-300">
+                  <div className="animate-spin w-8 h-8 border-3 border-purple-400 border-t-transparent rounded-full mx-auto mb-4"></div>
+                  <p className="text-lg font-medium">기록을 불러오는 중...</p>
                 </div>
               ) : drawHistory.length === 0 ? (
-                <div className="text-center py-8 text-muted-foreground">
-                  <Clock className="text-2xl mb-2 mx-auto" />
-                  <p>아직 추첨 기록이 없습니다.</p>
-                  <p className="text-sm">첫 번째 추첨을 시작해보세요!</p>
+                <div className="text-center py-12 text-purple-300">
+                  <Clock className="text-4xl mb-4 mx-auto text-purple-400" />
+                  <p className="text-lg font-medium">아직 추첨 기록이 없습니다.</p>
+                  <p className="text-purple-400">첫 번째 추첨을 시작해보세요! ✨</p>
                 </div>
               ) : (
                 drawHistory.map((record, index) => (
                   <motion.div
                     key={record.id}
-                    className="bg-muted rounded-lg p-4 border border-border"
+                    className="bg-gradient-to-r from-slate-800/50 to-purple-800/30 rounded-xl p-6 border border-purple-500/30 shadow-lg"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                     data-testid={`history-item-${record.id}`}
                   >
                     <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                          <Trophy className="text-primary-foreground text-sm" />
+                      <div className="flex items-center space-x-4">
+                        <div className="w-12 h-12 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                          <Trophy className="text-white text-lg" />
                         </div>
                         <div>
-                          <div className="font-medium text-card-foreground" data-testid={`winner-${record.id}`}>
+                          <div className="font-bold text-purple-100 text-lg" data-testid={`winner-${record.id}`}>
                             {record.winner}
                           </div>
                           {record.gift && (
-                            <div className="text-sm font-medium text-primary" data-testid={`gift-${record.id}`}>
+                            <div className="text-pink-300 font-semibold" data-testid={`gift-${record.id}`}>
                               🎁 {record.gift}
                             </div>
                           )}
-                          <div className="text-sm text-muted-foreground" data-testid={`timestamp-${record.id}`}>
+                          <div className="text-purple-400 text-sm" data-testid={`timestamp-${record.id}`}>
                             {new Date(record.timestamp).toLocaleString('ko-KR')}
                           </div>
                         </div>
                       </div>
-                      <div className="text-sm text-muted-foreground" data-testid={`participants-count-${record.id}`}>
+                      <div className="text-purple-300 font-medium" data-testid={`participants-count-${record.id}`}>
                         {record.totalParticipants}명 중 선정
                       </div>
                     </div>
@@ -533,11 +534,11 @@ export default function LotteryPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-card border-t border-border mt-12">
-        <div className="max-w-4xl mx-auto px-4 py-6 text-center">
-          <p className="text-muted-foreground text-sm flex items-center justify-center">
-            <Shield className="mr-1 h-4 w-4" />
-            공정한 추첨을 위해 JavaScript Math.random() 함수를 사용합니다
+      <footer className="bg-gradient-to-r from-slate-900/80 to-purple-900/80 backdrop-blur-sm border-t border-purple-500/20 mt-16">
+        <div className="max-w-6xl mx-auto px-6 py-8 text-center">
+          <p className="text-purple-300 font-medium flex items-center justify-center">
+            <Shield className="mr-2 h-5 w-5 text-pink-400" />
+            ⚡ 공정한 추첨을 위해 JavaScript Math.random() 함수를 사용합니다 ⚡
           </p>
         </div>
       </footer>
